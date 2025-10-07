@@ -1,15 +1,12 @@
-
-
 import 'package:get/get.dart';
 
 class CounterController extends GetxController {
-  var counter = 0.obs;
 
-  var isDark = false.obs;
+  var count = 0;
 
-  void changeTheme() => isDark.value = !isDark.value;
+  void increment() {
+    count++;
+    update();
+  }
 
-  void increment() => counter + 1;
-  void dercrement() => counter - 1;
-  
 }

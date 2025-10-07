@@ -7,31 +7,27 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-    final counterC = Get.put(CounterController());
-
+  final countC = Get.put(CounterController());
   @override
   Widget build(BuildContext context) {
-    return Obx(() => MaterialApp(
-      theme: counterC.isDark.value ? ThemeData.dark() : ThemeData.light(),
-      home: HomePage(),
-    ));
-  }
-}
-
-class HomePage extends StatelessWidget {
-  final c = Get.find<CounterController>();
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: Center(
-        child: Obx(() => Text(
-          "Angka ${c.counter}",
-          style: TextStyle(
-            fontSize: 25
-          ),),) 
+    print("build");
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(),
+        body: Center(
+          child: GetBuilder<CounterController>(
+            // init: CounterController(),
+            builder: (controller) => Text(
+            "Angka ${controller.count}",
+            style: TextStyle(
+              fontSize: 35
+            ),
+          ),)
+        ),
+        floatingActionButton: FloatingActionButton(onPressed: () {
+          countC.increment();
+        }),
       ),
-      floatingActionButton: FloatingActionButton(onPressed: () => c.changeTheme()),
     );
   }
 }
