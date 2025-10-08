@@ -6,36 +6,52 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  final countC = Get.put(CounterController());
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(),
-        body: Center(child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            GetBuilder<CounterController>(
-              id: "hafid",
-              builder: (_) {
-              return Text("Angka ${countC.count}", style: TextStyle(fontSize: 35));
-            }),
-            GetBuilder<CounterController>(builder: (_) {
-              return Text("Angka ${countC.count}", style: TextStyle(fontSize: 35));
-            })
-          ],
-        )),
-        floatingActionButton: FloatingActionButton(onPressed: () => countC.add()),
+    return GetMaterialApp(
+      home: HomePage(),
+    );
+  }
+}
+
+class HomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(onPressed: () => Get.to(() => TextPage()), icon: Icon(Icons.refresh))
+        ],
+      ),
+      body: Center(
+        child: Text("HOME PAGE"),
+      ),
+    );
+    
+  }
+}
+
+class TextPage extends StatefulWidget {
+  @override
+  State<TextPage> createState() => _TextPageState();
+}
+
+class _TextPageState extends State<TextPage> {
+  final textC = Get.put(TextController());
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("TEXT PAGE"),
+      ),
+      body: TextField(
+        controller: textC.myC,
       ),
     );
   }
 }
 
-class CounterController extends GetxController {
-  var count = 0;
-
-  void add() {
-    count++;
-    update(['hafid']);
-  }
+class TextController extends GetxController {
+  final myC = TextEditingController();
 }
