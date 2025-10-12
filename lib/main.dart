@@ -18,51 +18,69 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class CounterController extends GetxController {
-  var count = 0.obs;
 
-  void increment() {
-    count++;
-    Get.snackbar(
-      'Berhasil!',
-      'Kamu menekan tombol sebanyak $count kali.',
-      snackPosition: SnackPosition.BOTTOM,
-      duration: const Duration(milliseconds: 800),
-      backgroundColor: Colors.amber,
-      backgroundGradient: LinearGradient(colors: [Colors.purple, Colors.green]),
-      borderColor: Colors.red,
-      borderWidth: 5,
-      onTap: (_) {
-      },
-      icon: Icon(Icons.ac_unit, color: Colors.white,),
-      shouldIconPulse: false,
-      snackStyle: SnackStyle.GROUNDED
-    );
-  }
-}
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final CounterController controller = Get.put(CounterController());
 
     return Scaffold(
       appBar: AppBar(title: const Text('Counter App with GetX')),
       body: Center(
-        child: Obx(
-          () => Text(
-            'You have pushed the button this many times:\n${controller.count}',
+        child: Text(
+            'You have pushed the button this many times',
             textAlign: TextAlign.center,
             style: const TextStyle(fontSize: 24),
           ),
         ),
-      ),
       floatingActionButton: FloatingActionButton(
-        onPressed: controller.increment,
+        onPressed: () {
+          // Get.dialog(
+          //   Icon(Icons.ac_unit),
+          //   name: "dialog khusus"
+          //   // AlertDialog(
+          //   //   title: Text("ini deialog"),
+          //   //   content: Text("ini deskripsi"),
+          //   // )
+          // );
+
+          // Get.generalDialog(pageBuilder: (context, _, _2) {
+          //   return AlertDialog(
+          //     title: Text("ini dialog"),
+          //     content: Text("ini deskripsi"),
+          //   );
+          // });
+          Get.defaultDialog(
+            barrierDismissible: false,
+            title: "Ini judul",
+            middleText: "ini deskripsinya",
+            textConfirm: "Ok Confirm",
+            cancelTextColor: Colors.green,
+            onConfirm: () {
+              Get.back();
+              Get.to(OtherPage());
+            },
+            confirmTextColor: Colors.red,
+            cancel: ElevatedButton(onPressed: () {
+              Get.back();
+            }, child: Text("Batalkan"))
+          );
+        },
         child: const Icon(Icons.add),
       ),
+    );
+  }
+}
+
+class OtherPage extends StatelessWidget {
+  const OtherPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
     );
   }
 }
