@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  final c = Get.lazyPut(() => MyController(), tag: 'tag-text', fenix: true);
-
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(home: HomePage());
@@ -15,71 +14,51 @@ class MyApp extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-            onPressed: () => Get.to(() => CountPage()),
-            icon: Icon(Icons.keyboard_arrow_right),
-          ),
-        ],
-      ),
-      body: Center(child: Text("Home Page", style: TextStyle(fontSize: 50))),
-    );
-  }
-}
-
-class CountPage extends StatelessWidget {
-  final c = Get.put(MyController(), permanent: true, tag: 'tag-count' );
-  // final c = Get.find<MyController>();
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-            onPressed: () => Get.to(() => TextPage()),
-            icon: Icon(Icons.keyboard_arrow_right),
-          ),
-        ],
-      ),
+      appBar: AppBar(title: Text("Home Page")),
       body: Center(
-        child: Obx(() => Text("${c.count}", style: TextStyle(fontSize: 50))),
-      ),
-      floatingActionButton: FloatingActionButton(onPressed: () => c.add()),
-    );
-  }
-}
-
-class TextPage extends StatelessWidget {
-  // final c = Get.put(MyController(), permanent: false, tag: 'tag-text');
-  final c = Get.find<MyController>(tag: 'tag-text');
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Center(
-          child: TextField(
-            controller: c.textC,
-            decoration: InputDecoration(border: OutlineInputBorder()),
-          ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("Home Page"),
+            OutlinedButton(
+              onPressed: () => Get.to(() => CountPage()),
+              child: Text("Next Page >>"),
+            ),
+          ],
         ),
       ),
     );
   }
 }
 
-class MyController extends GetxController {
-  var count = 0.obs;
+class CountPage extends StatelessWidget {
+  final count = 0.obs;
 
-  var textC = TextEditingController();
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Count Page")),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Obx(() => Text("${count}", style: TextStyle(fontSize: 25))),
+            // OutlinedButton(onPressed: ()=> Get.to(() => CountPage()), child: Text("Next Page >>"))
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Get.putAsync<SharedPreferences>(() async {
+          final prefs = await SharedPreferences.getInstance();
+          await prefs.setInt('counter', 99);
 
-  void add() => count++;
+          count.value = prefs.getInt('counter')!.toInt();
+          return prefs;
+        }),
+      ),
+    );
+  }
 }
