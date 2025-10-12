@@ -18,54 +18,110 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
-
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(title: const Text('Counter App with GetX')),
       body: Center(
         child: Text(
-            'You have pushed the button this many times',
-            textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 24),
-          ),
+          'You have pushed the button this many times',
+          textAlign: TextAlign.center,
+          style: const TextStyle(fontSize: 24),
         ),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Get.dialog(
-          //   Icon(Icons.ac_unit),
-          //   name: "dialog khusus"
-          //   // AlertDialog(
-          //   //   title: Text("ini deialog"),
-          //   //   content: Text("ini deskripsi"),
-          //   // )
-          // );
-
-          // Get.generalDialog(pageBuilder: (context, _, _2) {
-          //   return AlertDialog(
-          //     title: Text("ini dialog"),
-          //     content: Text("ini deskripsi"),
-          //   );
-          // });
-          Get.defaultDialog(
-            barrierDismissible: false,
-            title: "Ini judul",
-            middleText: "ini deskripsinya",
-            textConfirm: "Ok Confirm",
-            cancelTextColor: Colors.green,
-            onConfirm: () {
-              Get.back();
-              Get.to(OtherPage());
-            },
-            confirmTextColor: Colors.red,
-            cancel: ElevatedButton(onPressed: () {
-              Get.back();
-            }, child: Text("Batalkan"))
+          Get.bottomSheet(
+            isScrollControlled: true,
+            Padding(
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+              ),
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
+                color: Colors.amber,
+                child: Center(
+                  child: ListView(
+                    children: [
+                      TextField(
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Tulis sesuatu...',
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      TextField(
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Tulis sesuatu...',
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      TextField(
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Tulis sesuatu...',
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      TextField(
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Tulis sesuatu...',
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      TextField(
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Tulis sesuatu...',
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      TextField(
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Tulis sesuatu...',
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      TextField(
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Tulis sesuatu...',
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      TextField(
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Tulis sesuatu...',
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      TextField(
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Tulis sesuatu...',
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      TextField(
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Tulis sesuatu...',
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      ElevatedButton(onPressed: (){}, child: Text("Save"))
+                    ],
+                  ),
+                ),
+              ),
+            ),
           );
         },
         child: const Icon(Icons.add),
@@ -79,8 +135,6 @@ class OtherPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-    );
+    return Scaffold(appBar: AppBar());
   }
 }
