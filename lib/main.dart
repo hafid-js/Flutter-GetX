@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_getx/pages/page1.dart';
-import 'package:flutter_getx/pages/page2.dart';
-import 'package:flutter_getx/pages/page3.dart';
-import 'package:flutter_getx/pages/page4.dart';
-import 'package:flutter_getx/pages/page5.dart';
-import 'package:flutter_getx/routes/page_route.dart';
+import 'package:flutter_getx/pages/detail.dart';
+import 'package:flutter_getx/pages/home.dart';
+import 'package:flutter_getx/pages/product.dart';
+import 'package:flutter_getx/routes/app_pages.dart';
 import 'package:get/get.dart';
 
 void main() {
@@ -12,14 +10,13 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      home: PageSatu(),
-      initialRoute: '/',
-      // unknownRoute: GetPage(name: '/404', page: () => PageNotFound),
-      getPages: AppPage.pages
+      home: HomePage(),
+      getPages: AppPages.pages
     );
   }
 }
