@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import './routes/app_pages.dart';
+import './pages/home_page.dart';
+
+import './controllers/usersC.dart';
+
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-
-
+  final userC = Get.put(UsersC());
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      theme: ThemeData.dark(),
-      home: Scaffold(
-        appBar: AppBar(),
-        floatingActionButton: FloatingActionButton(onPressed: () {
-          Get.changeTheme(Get.isDarkMode ? ThemeData.light() : ThemeData.dark());
-        }),
-      ),
+      home: HomePage(),
+      getPages: AppPages.pages,
     );
   }
 }
