@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_getx/bindings/myB.dart';
-import 'package:flutter_getx/controllers/myC.dart';
-import 'package:flutter_getx/pages/home.dart';
 import 'package:get/get.dart';
 
 
@@ -15,7 +12,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       home: HomePage(),
-      initialBinding: MyB(),
     );
+  }
+}
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
   }
 }
